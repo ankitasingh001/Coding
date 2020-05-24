@@ -50,17 +50,20 @@ class add_lec:
     
     # Add sadness as required
     def add_sadness(self,start,lectures,sadness):
+
+        # If list is empty just check if range exceeds max_range and add sadness if required
         if self.list == []:
             if(start + lectures-1 > self.max_Range):
                 self.total_sad += (start +lectures-1-self.max_Range)*sadness
                 self.list.append([start,self.max_Range])
             else:
                 self.list.append([start,start+lectures-1])
+        
+        # Check and merge list elements if interesecting 
         else:
             len_list = len(self.list)
             index = find_index(self.list,len_list,start)
-            index_one = index
-            a,b = self.list[index_one-1][0],self.list[index_one-1][1]
+            a,b = self.list[index-1][0],self.list[index-1][1]
             c,d = start,start+lectures-1
             added =False
                 
@@ -68,11 +71,23 @@ class add_lec:
             while (range_intersection(a,b,c,d)):
                 added = True
                 r1,r2 = merge_ranges(a,b,c,d)
-                del self.list[index_one-1] 
-                if(index_one+1>len(self.list) or index_one<=0):
+                del self.list[index-1] 
+                if(index>len(self.list) or index<=0):
                     break
-                a,b = self.list[index_one-1][0],self.list[index_one-1][1]
+                a,b = self.list[index-1][0],self.list[index-1][1]
                 c,d = r1,r2
+
+
+            if(index <len_list and added is False):
+                a,b = self.list[index][0],self.list[index][1]
+                while (range_intersection(a,b,c,d)):
+                    added = True
+                    r1,r2 = merge_ranges(a,b,c,d)
+                    del self.list[index] 
+                    if(index>=len(self.list) ):
+                        break
+                    a,b = self.list[index][0],self.list[index][1]
+                    c,d = r1,r2
             
             if(added is True):
                 if r2>self.max_Range :
@@ -83,25 +98,7 @@ class add_lec:
                     insert_index = find_index(self.list,len(self.list),r1)
                     self.list.insert(insert_index,[r1,r2])
 
-            if(index_one <len_list and added is False):
-                a,b = self.list[index_one][0],self.list[index_one][1]
-                while (range_intersection(a,b,c,d)):
-                    added = True
-                    r1,r2 = merge_ranges(a,b,c,d)
-                    del self.list[index_one] 
-                    if(index_one+1>len(self.list) ):
-                        break
-                    a,b = self.list[index_one][0],self.list[index_one][1]
-                    c,d = r1,r2
-                if(added is True):
-                    if r2>self.max_Range:
-                        insert_index = find_index(self.list,len(self.list),r1)
-                        self.total_sad += (r2-self.max_Range )*sadness
-                        self.list.insert(insert_index,[r1,self.max_Range])
-                    else:
-                        insert_index = find_index(self.list,len(self.list),r1)
-                        self.list.insert(insert_index,[r1,r2])
-
+            # If no interesection just add the elements 
             if(added is False):
                 if d>self.max_Range:
                     self.total_sad += (d-self.max_Range)*sadness
@@ -109,13 +106,16 @@ class add_lec:
                 else:
                     self.list.insert(index,[c,d])
 
+    # Utility function to print variables for testing 
     def print_var(self):
         print("LIST =",self.list)
         print("TOTAL SADNESS =",self.total_sad)
         print("RANGE ALLOWED = ",self.max_Range)
 
 
-
+'''
+Testing scenarios
+'''
 # l = [[1,3],[5,6],[8,8],[12,15],[17,20],[23,34]]           
 # print(find_index(l,6,8))
 
@@ -130,14 +130,7 @@ class add_lec:
 # tmp.add_sadness(2,4,100)
 # tmp.print_var()
 
-# my_dict = defaultdict(list)
-# #my_dict[200]=[[2,5]]
-# my_dict[400].append([5,5])
-# my_dict[200].append([7,8])
-# for k,v in sorted(my_dict.items()):
-#     for j in v:
-#         print(j)
-# print(my_dict)
+# Implementing priority based insertion via dictionary
 
 n  = int(input())
 for i in range(n):
