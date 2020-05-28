@@ -19,21 +19,12 @@ def floydWarshall(graph,V):
                 # i to j, then update the value of dist[i][j] 
                 dist[i][j] = min(dist[i][j] ,dist[i][k]+ dist[k][j] )
 
-    dist = np.where(dist ==np.inf , 0, dist) 
-
-    #Finding minimum of all shortest paths
-    maxi = 0
-    for i in range(V):
-        for j in range(V):
-            if maxi<dist[i][j]:
-                maxi =dist[i][j]
-
-    return int(maxi)
+    return np.max(dist)
 
 #Taking input and printing required distance 
 
 n,e = map(int, input().split(" "))
-gr = np.full((n,n), np.inf)
+gr = np.full((n,n),999999999,dtype = int)
 
 # Initialise weights for both a->b and b->a
 for i in range(e):
