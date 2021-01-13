@@ -1,8 +1,8 @@
-''' https://leetcode.com/problems/verifying-an-alien-dictionary/
+/* https://leetcode.com/problems/verifying-an-alien-dictionary/
 
     Author @ankitasingh001 
 
-'''
+*/
 
 #include<bits/stdc++.h>
 using namespace std;
