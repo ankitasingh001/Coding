@@ -2,6 +2,7 @@
     https://leetcode.com/problems/maximum-product-of-word-lengths/
 
     Author @ankitasingh001 
+    Note: This solution ran on my machine, but not on leetcode IDE
 */
 
 #include<bits/stdc++.h>
@@ -19,6 +20,7 @@ public:
         //unordered_map<char,Node> *charmap = new unordered_map<char,Node>[len];
         int *charmap = new int[len];
         memset(charmap, 0, sizeof(charmap));
+        //Creating a bitmap /setting bit to 1 for all alphabets that occur in word. Using '&' to compare later on
         for(int i=0;i<len;i++)
         {
             for(int j=0;j<words[i].length();j++)
@@ -48,6 +50,7 @@ public:
     }
 };
 
+//Testing
 int main()
 {
     Solution s;
