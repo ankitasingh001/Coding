@@ -14,11 +14,12 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> triplets;
+        set<vector<int> > set_of_vectors; 
         sort(nums.begin(),nums.end());
         map<int,int> intmap;
         for (int i=0;i<nums.size();i++)
         {
-            intmap[nums[i]] =1;
+            intmap[nums[i]] +=1;
         }
         for(int i=0;i<nums.size();i++)
         {
@@ -26,15 +27,18 @@ public:
                 break;
             for(int j=i+1;j<nums.size();j++)
             {
-                if(intmap[-(nums[i]+nums[j])]==1)
+                int subint= -(nums[i]+nums[j]);
+                int hashint = intmap[subint];
+                if((hashint ==1 && nums[i]!= subint && nums[j]!= subint )) //|| (hashint>1 && (nums[i]==subint || nums[j]==subint))
                     {
                         vector<int> triplet{nums[i],nums[j],intmap[-(nums[i]+nums[j])]};
-                        triplets.push_back(triplet);
-                        cout<<nums[i]<<" "<<nums[j]<<" "<<intmap[-(nums[i]+nums[j])]<<endl;
+                        set_of_vectors.insert(triplet);
+                        //cout<<nums[i]<<" "<<nums[j]<<" "<<-(nums[i]+nums[j])<<endl;
                     }
 
             }
         }
+        triplets.assign(set_of_vectors.begin(),set_of_vectors.end());
         return triplets;
     }
 };
@@ -45,6 +49,13 @@ int main()
 	Solution s;
     vector<int> vect{-1,0,1,2,-1,-4}; 
     string tmp = "ngxlkthsjuoqcpavbfdermiywz";
-	s.threeSum(vect);
+	vector<vector<int>> vec=s.threeSum(vect);
+      
+    // Displaying the 2D vector 
+    for (int i = 0; i < vec.size(); i++) { 
+        for (int j = 0; j < vec[i].size(); j++) 
+            cout << vec[i][j] << " "; 
+        cout << endl; 
+    } 
 	return 0;
 }
