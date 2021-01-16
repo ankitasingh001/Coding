@@ -23,7 +23,7 @@ public:
         }
         for(int i=0;i<nums.size();i++)
         {
-            if(nums[i]>0)
+            if(nums[i]>=0)
                 break;
             for(int j=i+1;j<nums.size();j++)
             {
@@ -31,7 +31,7 @@ public:
                 int hashint = intmap[subint];
                 if((hashint ==1 && nums[i]!= subint && nums[j]!= subint )) //|| (hashint>1 && (nums[i]==subint || nums[j]==subint))
                     {
-                        vector<int> triplet{nums[i],nums[j],intmap[-(nums[i]+nums[j])]};
+                        vector<int> triplet{nums[i],nums[j],-(nums[i]+nums[j])};
                         set_of_vectors.insert(triplet);
                         //cout<<nums[i]<<" "<<nums[j]<<" "<<-(nums[i]+nums[j])<<endl;
                     }
