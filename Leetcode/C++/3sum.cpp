@@ -31,23 +31,30 @@ public:
         for(auto i = intmap.begin();i!= intmap.end();i++)
         {   
             counter++;
-            if(i->first>0)
-                break;
+
             for (auto j = next(i);j!= intmap.end();j++)
             {
                 
                 if (i->second>=1)
                 {
-                    if(j->first>0)
-                        break;
+
                     int subint= -(i->first+ j->first);
                     int hashint = intmap[subint];
+                    int twoint = intmap[subint/2];
                     //cout<<"here i am "<<i->first<<" "<<j->first<<" "<<hashint<<endl;
                     if((hashint >0))
                     {
                         vector<int> triplet{i->first,j->first,-(i->first+ j->first)};
                         set_of_vectors.insert(triplet);
                     }
+                    if(twoint>1)
+                    {
+                        vector<int> triplet{i->first,twoint,twoint};
+                        set_of_vectors.insert(triplet);
+                    }
+                    if(j->first>0)
+                        break;
+                    
                 }
                 if (i->second >1)
                 {
@@ -69,6 +76,8 @@ public:
                         vector<int> triplet{0,0,0};
                         set_of_vectors.insert(triplet);
                     }
+            if(i->first>=0)
+                break;
         }
         //cout<<"value of counter = "<<counter<<endl;
         triplets.assign(set_of_vectors.begin(),set_of_vectors.end());
@@ -81,7 +90,7 @@ int main()
 {
 	Solution s;
     vector<int> vect{-1,0,1,2,-1,-4}; 
-    vector<int> vec1{0,0,0};
+    vector<int> vec1{1,1,-2};
     string tmp = "ngxlkthsjuoqcpavbfdermiywz";
 	vector<vector<int>> vec=s.threeSum(vec1);
       
