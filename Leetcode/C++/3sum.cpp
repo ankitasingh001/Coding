@@ -21,65 +21,31 @@ public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> triplets;
         set<vector<int> > set_of_vectors; 
-        //sort(nums.begin(),nums.end());
+        sort(nums.begin(),nums.end());
         map<int,int> intmap;
         int counter =0;
+        
         for (int i=0;i<nums.size();i++)
         {
             intmap[nums[i]] +=1;
-        }
-        for(auto i = intmap.begin();i!= intmap.end();i++)
-        {   
-            counter++;
-
-            for (auto j = next(i);j!= intmap.end();j++)
+            int j=i+1,k=nums.size()-1;
+            while(j<k)
             {
-                
-                if (i->second>=1)
+                if(nums[i]+nums[j]+nums[k]==0)
                 {
-
-                    int subint= -(i->first+ j->first);
-                    int hashint = intmap[subint];
-                    int twoint = intmap[subint/2];
-                    //cout<<"here i am "<<i->first<<" "<<j->first<<" "<<hashint<<endl;
-                    if((hashint >0))
-                    {
-                        vector<int> triplet{i->first,j->first,-(i->first+ j->first)};
-                        set_of_vectors.insert(triplet);
-                    }
-                    if(twoint>1)
-                    {
-                        vector<int> triplet{i->first,twoint,twoint};
-                        set_of_vectors.insert(triplet);
-                    }
-                    if(j->first>0)
-                        break;
-                    
+                    vector<int> triplet{nums[i],nums[j],nums[k]};
+                    sort(triplet.begin(),triplet.end());
+                    set_of_vectors.insert(triplet);
+                    j++;
+                    k--;
                 }
-                if (i->second >1)
-                {
-                    /* code */
-                    //cout<<"greater = "<<i->first<<endl;
-                    int subint= -(i->first)*2;
-                    int hashint = intmap[subint];
-                    if((hashint >0))
-                    {
-                        vector<int> triplet{i->first,i->first,-(i->first+ i->first)};
-                        set_of_vectors.insert(triplet);
-                    }
-                }
-               
-                
+                if((nums[i]+nums[j]+nums[k]>0))
+                    k--;
+                if((nums[i]+nums[j]+nums[k]<0))
+                    j++;
             }
-             if(i->second >2 && i->first==0)
-                    {
-                        vector<int> triplet{0,0,0};
-                        set_of_vectors.insert(triplet);
-                    }
-            if(i->first>=0)
-                break;
+            
         }
-        //cout<<"value of counter = "<<counter<<endl;
         triplets.assign(set_of_vectors.begin(),set_of_vectors.end());
         return triplets;
     }
@@ -90,9 +56,9 @@ int main()
 {
 	Solution s;
     vector<int> vect{-1,0,1,2,-1,-4}; 
-    vector<int> vec1{1,1,-2};
+    vector<int> vec1{0,0,0};
     string tmp = "ngxlkthsjuoqcpavbfdermiywz";
-	vector<vector<int>> vec=s.threeSum(vec1);
+	vector<vector<int>> vec=s.threeSum(vect);
       
     // Displaying the 2D vector 
     for (int i = 0; i < vec.size(); i++) { 
