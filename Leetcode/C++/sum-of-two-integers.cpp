@@ -5,6 +5,8 @@ Author @ankitasingh001
 
 */
 
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     int getSum(int a, int b) {
@@ -14,12 +16,23 @@ public:
         while(y!=0)
         {
             //carry bits
-            int carry = x&y;
+            //unsigned int because it did not work on leetcode compiler
+            int carry =(unsigned int) x & (unsigned int)y;
             //xor 
-            x = x^y;
+            x = (unsigned int)x^(unsigned int)y;
             //shift carry bits
-            y= carry<<1;
+            y= (unsigned int)carry<<1;
         }
         return x;
     }
 };
+
+
+//TEST CODE
+int main()
+{
+	Solution s;
+    int vec=s.getSum(2,-6);
+    cout<<(vec)<<endl;
+	return 0;
+}
