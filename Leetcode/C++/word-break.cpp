@@ -24,7 +24,7 @@ public:
     bool wordBreak(string s, vector<string>& wordDict) {
         map<string,bool> dictionary ;
         int len = s.length();
-        bool arr[len][len];
+        bool arr[len+1][len+1];
         memset(arr,false,sizeof(arr));
         int k=0,tmp=0;
         for(int i=0;i<wordDict.size();i++)
@@ -40,17 +40,18 @@ public:
             k=tmp;
             for(int j=0;j<=i;j++)
             {   
-                //cout<<"values = "<<j<<" "<<k<<" ";
-                //cout<<arr[j][k-1]<<" "<<arr[j+1][k]<<" "<<s.substr(j,k-j+1)<<" end ";
-                if(arr[j][k-1]||arr[j+1][k]||dictionary[s.substr(j,k-j+1)])
+                cout<<"values = "<<j<<" "<<k<<" ";
+                //cout<<arr[j][k-1]<<" "<<arr[j+1][k]<<" "<<s.substr(j,k-j+1)<<" ";
+                //cout<<isInDictionary(s.substr(j,k-j+1),dictionary)<<" end ";;
+                if((arr[j][k-1]||arr[j+1][k])||dictionary[s.substr(j,k-j+1)]) 
                     arr[j][k]= true;
-                k++;
                 cout<<arr[j][k]<< " ";
+                k++;
             }
             tmp++;
             cout<<endl;
         }
-        return arr[len-1][len-1];
+        return arr[0][len];
     }
 };
 
