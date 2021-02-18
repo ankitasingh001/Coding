@@ -34,7 +34,7 @@ public:
         }
         for(int i=0;i<len;i++)
         {
-            string n(1,s[i]);
+            string n(1,s[i]); // To convert character to string <Remember this>
             arr[i][i] = dictionary[n];
             //cout<<(arr[i][i]);
         }
