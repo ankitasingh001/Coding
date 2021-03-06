@@ -9,7 +9,8 @@
 
 class Solution {
 public:
-    int numDecodings(string s) {
+    int numDecodings(string s) 
+    {
         
     }
 };
